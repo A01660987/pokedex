@@ -1,19 +1,21 @@
 import React from 'react';
 import './App.css';
 import {PokeApi} from './api/PokeAPI';
-import Screen from './components/Screen.tsx';
 import {Pokemon} from './models/Pokemon';
 import Button from './components/Button';
 import PokemonComponent from './components/Pokemon';
 
 function App() {
-  const [pokemonNumber, setPokemonNumber] = React.useState<string|undefined>(undefined);
+  
+  const [pokemonNumber, setPokemonNumber] = React.useState<number>(1);
   const [pokemon,setPokemon]=React.useState<Pokemon|undefined>(undefined);
   const [loading,setLoading]=React.useState<boolean>(false);
   const [error,setError]=React.useState<string|undefined>(undefined);
-  function buscar(){
+  
+  function buscar(i: number){
     setLoading(true);
     setError(undefined);
+    setPokemonNumber(pokemonNumber+i);
     PokeApi.getPokemonById(pokemonNumber).then((response)=>{
       setPokemon(response.data);
       setLoading(false);
@@ -26,10 +28,10 @@ function App() {
 
   return (
     <div className="App">
-      <input onChange={(event)=>{setPokemonNumber(event.target.value)}} className="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" value={pokemonNumber}></input>
-      <Button label="Buscar" color='green' onClick={()=>buscar()}></Button>
-      <p>{pokemon?.name}</p>
-      {loading && <p>Cargando...</p>}
+      <div className='buttons flex justify-center'>
+        <Button label="<" onClick={() => buscar(-1)}></Button>
+        <Button label=">" onClick={() => buscar(+1)}></Button> 
+      </div>
       {(!loading && pokemon &&!error) && <>
         <PokemonComponent pokemon={pokemon}></PokemonComponent>
       </>}

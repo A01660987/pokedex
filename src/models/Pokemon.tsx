@@ -1,19 +1,19 @@
-export interface Pokemon{
-    id:number;
-    name:string;
-    abilities:Ability[];
+export interface Pokemon {
+    id: number;
+    name: string;
+    types: Type[];
     sprites:{
         other:{
-            'official-artwork':{
-                front_default:string;
+            'official-artwork': {
+                front_default: string;
             }
         }
     }
 }
 
-interface Ability{
-    ability:{
-        name:string;
-        url:string;
+interface Type {
+    slot: number;
+    type: {
+        name: string;
     }
 }

@@ -1,0 +1,9 @@
+:root {
+    text-transform: capitalize;
+}
+
+div.App {
+    width: 100vw;
+    height: 100vh;
+    background: #242424 url(https://assets.pokemon.com/static2/_ui/img/chrome/body_bg.png);
+}
